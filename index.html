@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #4a86e8;
+      --primary-hover: #3a76d8;
+      --text-color: #333;
+      --light-bg: #f7f9fc;
+      --border-radius: 12px;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    body {
+      font-family: 'Comfortaa', cursive;
+      text-align: center;
+      padding: 30px 15px;
+      background-color: var(--light-bg);
+      color: var(--text-color);
+      margin: 0;
+    }
+
+    .form-container {
+      background-color: white;
+      padding: 40px 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      max-width: 650px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .logo-container {
+      margin-bottom: 24px;
+    }
+
+    @media print {
+      .logo-container {
+        display: none;
+      }
+    }
+
+    img {
+      max-width: 180px;
+      height: auto;
+    }
+
+    .cabecera h1 {
+      margin: 0;
+      font-size: 2.4rem;
+      color: var(--primary-color);
+      font-weight: 700;
+    }
+
+    .detalle {
+      margin-top: 14px;
+      margin-bottom: 36px;
+    }
+
+    .detalle h2 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .detalle h3 {
+      margin-top: 4px;
+      font-size: 1.1rem;
+      color: #666;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px 12px;
+      border: 1px solid #ccc;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      box-sizing: border-box;
+      background-color: #fff;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 4px rgba(74, 134, 232, 0.15);
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      padding: 16px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .error-message {
+      color: #e53935;
+      font-size: 0.85rem;
+      margin-top: 6px;
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <div class="logo-container">
+      <img id="logo" src="https://lh3.googleusercontent.com/fife/ALs6j_HE18yVboizmHO_Foa1t8xhYB25pAc0VELweou8P7XrLBhELEFdpkzajbMsJX8yayLW1hNMdR_vlIFL2RSw6_2LMAIPcwGEIAapR0DWZMEMJ6VzspBplUNvoF0Ac9CvpyDQcktKtF2H55AzsKWsb5yA2Dl_kLbwTHPqxZs0I7pKmCNyEW12EpYJm4ko5MBYvFNY7rSs5Z4W1A2XadXVRrJDlTqU4tDBhPQI01ZF5cJGn4e4zQz3iIAoKmb4NsMXHXPpX_rnAaDTcVXby0Bmn9swwS2lyi7LsSaQpaTlkJZTHUob6ajIuqubfF--loK02ERng_hXLYkAZolZqhNyo1ub0LUkwkQUPYNEbPx4wZJ4gQ-TNi725i2MwT_FwwxX6w6p4DV_TFkF2Fyrio6IoOhlqXErMc-mudYxz01XWhRTILRfEx2LMk3NNa3pKusOSBmuFe7jkKvkhlXho_zNYltUmW5WKfgEjDJonm88EcXMVItLOf20JXE7SBQp4BSzqGEKG1DFE7BKVVKVnPe1chcCz451kf3vPkTfasTvZczhkrvtprga9mLKTJ-Ay8kS7MlIiFuHD3jmDuL-hZQXTi9ASWjng7k68UAM8pfOifhfG5t1uou_qRYLJjFam2iA7vDI6KIaDYwDvfA8R4N5xyzVE5S12IsFFzOerOj9HlutAvRBFDkXWXdZ-BcrWLluMrX88Zf9_XvjEUDFQemLJigTt26f0LQFbnGYWPr0r5zGMUWszkyzOTRYyxS-zz0BV3Gw15_oBUhGqiwVSwtgMNPHln0xTQa9TIbGDa1CfKwZFtrKNC-8qDJ8KUPb_0cUu9gjsukCLyr0xmo95KWfnxSlrcABXOreQ4tfcVziIiYiZadqV2SVp6aMzKnpdD-oH3k_8tOAgvjG3WGkGwouEE6yDLGLVhfsMbYId7NqQhypveJ9s96t0Ai1b-FBtwPlsgfcx1ELEAgx1B22JDASO4-wVb3ci8QvqYa-Nt2geJ8yr1sgvd6ZB_5dMe4Q6fI7AyRxRdiPl4hN7MihzEG2R83vUt-MYu4kQnmtEHlhfCu8VNSAUvocnEVy4uBSqvkT4xhca-9ivzdgow0KA8WcGr4F6Bn0JW8vggGYLWuT1JBkKA437Ea4uKTC2ZOpWM-UcJGfrLuy4YOtgo4jBBsKmPwNYkSXgzIKLKUF5nZLNlT4igfPu3FTKlamzwZLJUMzqgfG6vCyh6_GctscJgXHopY5YgjcNh0c5kZdO1Q3NVYwrS1tI5cWjSeX1o13hM6sI9anGm4klU7I3OljVZTCEu9ZXLyMDZuBM4QEqyieUjYmhe1O-rvKeGTYaGNklTkGzr4oELQEPJ7t3v9TRC31pX4N9KqxIIUCyR_2hbC7q7XF1nCPrP0NZ5coQ_4rCiCY_l_yJ0DhcZjpmCd64oQXJ0rsYjD3EgGKxW0LgFBnLCx_TJVLbnBBqA0yIeS383IchRH5Ac3BQvYAo2BB538NncbgwClwtrFJ3Z-LQl7wu-EajJMU11JiF8Nh7hNgxmHQqHOgDVQkvuTSyv7wzPuk-8lda4kAQABZTuMSLkiaSF0uMgFmFcc-MzqhnNPMdBajcz-DWGFCA4svZgBMhfvLYg=w1920-h993" alt="Logo" />
+    </div>
+
+    <div class="cabecera">
+      <h1>Sistema de Inventario</h1>
+    </div>
+
+    <div class="detalle">
+      <h2>Restaurante La Portada Campestre</h2>
+      <h3>Año 2025</h3>
+    </div>
+
+    <div class="form-group">
+      <label for="tipoInventario">Tipo de Inventario</label>
+      <select id="tipoInventario" onchange="cargarCategorias()">
+        <option value="" disabled selected>Selecciona el tipo de inventario</option>
+        <option value="BODEGA">BODEGA</option>
+        <option value="CAFETERIA">CAFETERIA</option>
+        <option value="COCINA">COCINA</option>
+        <option value="JUGOS">JUGOS</option>
+        <option value="PRODUCCION">PRODUCCION</option>
+        <option value="PROVEEDORES">PROVEEDORES</option>
+      </select>
+      <div class="error-message" id="errorTipo">Por favor selecciona un tipo de inventario</div>
+    </div>
+
+    <div class="form-group">
+      <label for="categoria">Categoría</label>
+      <select id="categoria">
+        <option value="" disabled selected>Selecciona una categoría</option>
+      </select>
+      <div class="error-message" id="errorCategoria">Por favor selecciona una categoría</div>
+    </div>
+
+    <div class="form-group">
+      <label for="responsable">Responsable</label>
+      <input type="text" id="responsable" placeholder="Nombre del responsable" />
+      <div class="error-message" id="errorResponsable">Por favor ingresa el nombre del responsable</div>
+    </div>
+
+    <div class="form-group">
+      <label for="mes">Mes</label>
+      <select id="mes">
+        <option value="" disabled selected>Selecciona el mes</option>
+        <option value="Enero">Enero</option>
+        <option value="Febrero">Febrero</option>
+        <option value="Marzo">Marzo</option>
+        <option value="Abril">Abril</option>
+        <option value="Mayo">Mayo</option>
+        <option value="Junio">Junio</option>
+        <option value="Julio">Julio</option>
+        <option value="Agosto">Agosto</option>
+        <option value="Septiembre">Septiembre</option>
+        <option value="Octubre">Octubre</option>
+        <option value="Noviembre">Noviembre</option>
+        <option value="Diciembre">Diciembre</option>
+      </select>
+      <div class="error-message" id="errorMes">Por favor selecciona un mes</div>
+    </div>
+
+    <button onclick="continuar()">Continuar</button>
+  </div>
+
+  <!-- Modal de confirmación -->
+  <div id="modalConfirmacion" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000;">
+    <div style="position: relative; background: white; max-width: 500px; margin: 20px auto; padding: 30px; border-radius: 12px; top: 50%; transform: translateY(-50%);">
+      <h3 style="margin-top: 0; color: var(--primary-color);">Confirmar Información</h3>
+      <div id="modalContent" style="margin: 20px 0;"></div>
+      <div style="display: flex; gap: 10px; justify-content: center;">
+        <button onclick="confirmarContinuar()" style="width: auto; padding: 12px 24px;">Confirmar</button>
+        <button onclick="cerrarModal()" style="width: auto; padding: 12px 24px; background-color: #e74c3c;">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const categoriasPorTipo = {
+      "JUGOS": ["VIDRIERIA", "PULPAS"],
+      "BODEGA": ["GASEOSAS"],
+      "PRODUCCION": ["CARNES", "SALSAS"],
+      "CAFETERIA": ["PAQUETES", "PROVEEDORES"]
+    };
+
+    function cargarCategorias() {
+      const tipo = document.getElementById("tipoInventario").value;
+      const categoriaSelect = document.getElementById("categoria");
+      categoriaSelect.innerHTML = '<option value="" disabled selected>Selecciona una categoría</option>';
+      if (categoriasPorTipo[tipo]) {
+        categoriasPorTipo[tipo].forEach(cat => {
+          const option = document.createElement("option");
+          option.value = cat;
+          option.textContent = cat;
+          categoriaSelect.appendChild(option);
+        });
+      }
+      document.getElementById("errorTipo").style.display = "none";
+    }
+
+    function mostrarError(id) {
+      document.getElementById(id).style.display = "block";
+      return false;
+    }
+
+    function validarFormulario() {
+      let esValido = true;
+      const tipo = document.getElementById("tipoInventario").value;
+      const categoria = document.getElementById("categoria").value;
+      const responsable = document.getElementById("responsable").value;
+      const mes = document.getElementById("mes").value;
+
+      document.querySelectorAll('.error-message').forEach(el => el.style.display = "none");
+
+      if (!tipo) mostrarError("errorTipo"), esValido = false;
+      if (!categoria) mostrarError("errorCategoria"), esValido = false;
+      if (!responsable.trim()) mostrarError("errorResponsable"), esValido = false;
+      if (!mes) mostrarError("errorMes"), esValido = false;
+
+      return esValido;
+    }
+
+    function continuar() {
+      if (!validarFormulario()) return;
+
+      const tipo = document.getElementById("tipoInventario").value;
+      const categoria = document.getElementById("categoria").value;
+      const responsable = document.getElementById("responsable").value;
+      const mes = document.getElementById("mes").value;
+
+      // Show confirmation modal with details
+      document.getElementById("modalContent").innerHTML = `
+        <p><strong>Tipo de Inventario:</strong> ${tipo}</p>
+        <p><strong>Categoría:</strong> ${categoria}</p>
+        <p><strong>Responsable:</strong> ${responsable}</p>
+        <p><strong>Mes:</strong> ${mes}</p>
+      `;
+      document.getElementById("modalConfirmacion").style.display = "block";
+    }
+
+    function confirmarContinuar() {
+      const tipo = document.getElementById("tipoInventario").value;
+      const categoria = document.getElementById("categoria").value;
+      const responsable = document.getElementById("responsable").value;
+      const mes = document.getElementById("mes").value;
+
+      // Create URL with parameters
+      const params = new URLSearchParams({
+        tipo,
+        categoria,
+        responsable,
+        mes
+      });
+
+      // Redirect to formulario.html with parameters
+      window.location.href = `formulario.html?${params.toString()}`;
+    }
+
+    function cerrarModal() {
+      document.getElementById("modalConfirmacion").style.display = "none";
+    }
+  </script>
+</body>
+</html>
