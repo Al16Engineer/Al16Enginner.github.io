@@ -1,0 +1,428 @@
+/* Modern Sidebar Styles - Elegant Restaurant Version */
+:root {
+    --sidebar-width: 300px;
+    --primary-color: #3498db;
+    --secondary-color: #2980b9;
+    --bg-color: #2c3e50;
+    --light-text: #F5F5F5;
+    --highlight: #3498db;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --menu-item-hover: rgba(52, 152, 219, 0.1);
+    --submenu-bg: #34495e;
+}
+
+/* Sidebar Container */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: var(--sidebar-width);
+    height: 100%;
+    background-color: var(--bg-color);
+    color: var(--light-text);
+    transition: var(--transition);
+    z-index: 1000;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    border-right: 1px solid rgba(52, 152, 219, 0.2);
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+/* Header Section */
+.sidebar-header {
+    padding: 25px 20px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: linear-gradient(to bottom, rgba(44, 62, 80, 1), rgba(44, 62, 80, 0.9));
+}
+
+.logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin: 0 auto 15px;
+    display: block;
+    border-radius: 50%;
+    border: 2px solid rgba(52, 152, 219, 0.3);
+    padding: 5px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+}
+
+.user-info {
+    margin-top: 15px;
+}
+
+.user-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--light-text);
+    margin-bottom: 5px;
+}
+
+.user-meta {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.user-role, .user-location {
+    position: relative;
+    padding: 0 5px;
+}
+
+.user-role::after {
+    content: "•";
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Menu Section */
+.sidebar-menu {
+    flex: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+}
+
+.sidebar-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin: 2px 0;
+    position: relative;
+}
+
+.menu-item, .submenu-trigger {
+    display: flex;
+    align-items: center;
+    padding: 12px 25px;
+    color: var(--light-text);
+    text-decoration: none;
+    transition: var(--transition);
+    border-left: 3px solid transparent;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.menu-item:hover, 
+.menu-item.active,
+.submenu-trigger:hover {
+    background-color: var(--menu-item-hover);
+    border-left-color: var(--highlight);
+    color: var(--highlight);
+}
+
+.menu-icon {
+    width: 20px;
+    text-align: center;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    transition: var(--transition);
+}
+
+.menu-item:hover .menu-icon,
+.menu-item.active .menu-icon,
+.submenu-trigger:hover .menu-icon {
+    color: var(--highlight);
+}
+
+.menu-text {
+    flex: 1;
+    font-size: 0.95rem;
+    font-weight: 400;
+}
+
+/* Submenu Styles */
+.has-submenu > .submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    background-color: var(--submenu-bg);
+    padding-left: 15px;
+}
+
+.has-submenu.active > .submenu {
+    max-height: 500px;
+    transition: max-height 0.4s ease-in;
+}
+
+.submenu-arrow {
+    transition: transform 0.3s ease;
+    margin-left: auto;
+}
+
+.has-submenu.active .submenu-arrow {
+    transform: rotate(180deg);
+}
+
+.submenu-item {
+    padding: 10px 15px 10px 35px !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.submenu-item:hover {
+    background-color: rgba(52, 152, 219, 0.1) !important;
+    padding-left: 40px !important;
+}
+
+/* Footer Section */
+.sidebar-footer {
+    padding: 15px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: auto;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(52, 152, 219, 0.8);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: var(--transition);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.logout-btn:hover {
+    background-color: rgba(41, 128, 185, 1);
+    transform: translateY(-1px);
+}
+
+/* Toggle Button */
+.sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 45px;
+    height: 45px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.sidebar-toggle:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+.sidebar-toggle i {
+    font-size: 1.2rem;
+}
+
+/* Overlay */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+    backdrop-filter: blur(3px);
+}
+
+.sidebar-overlay.open {
+    display: block;
+}
+
+/* Active menu item */
+.menu-item.active {
+    background-color: rgba(52, 152, 219, 0.15);
+    border-left-color: var(--highlight);
+    font-weight: 500;
+}
+
+/* Modal Styles */
+/* Modal Styles - Consistent and Elegant */
+#logoutModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+#logoutModal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+#logoutModal .modal-content {
+    background: var(--bg-color);
+    border-radius: 8px;
+    padding: 25px;
+    width: 90%;
+    max-width: 350px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(52, 152, 219, 0.3);
+    transform: scale(0.98);
+    transition: transform 0.2s ease;
+}
+
+#logoutModal.show .modal-content {
+    transform: scale(1);
+}
+
+#logoutModal .modal-content h2 {
+    margin: 0 0 15px 0;
+    color: var(--light-text);
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+#logoutModal .modal-content p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+#logoutModal .modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+#logoutModal .btn-confirm {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    flex: 1;
+    max-width: 120px;
+}
+
+#logoutModal .btn-confirm:hover {
+    background: #c0392b;
+}
+
+#logoutModal .btn-cancel {
+    background: transparent;
+    color: var(--light-text);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+    max-width: 120px;
+}
+
+#logoutModal .btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 480px) {
+    #logoutModal .modal-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    #logoutModal .btn-confirm,
+    #logoutModal .btn-cancel {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+@keyframes modalFadeIn {
+    from { 
+        transform: translateY(-20px) scale(0.98); 
+        opacity: 0; 
+    }
+    to { 
+        transform: translateY(0) scale(1); 
+        opacity: 1; 
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .main-content.shifted {
+        margin-left: 0;
+    }
+    
+    .sidebar-toggle {
+        left: 15px;
+        top: 15px;
+    }
+    
+    .sidebar {
+        width: 280px;
+        left: -280px;
+    }
+    
+    .menu-item, .submenu-trigger {
+        padding: 12px 20px;
+    }
+    
+    .submenu-item {
+        padding: 10px 20px 10px 50px !important;
+    }
+}
+
+/* Smooth scroll for sidebar */
+.sidebar-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-menu::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb {
+    background: rgba(52, 152, 219, 0.3);
+    border-radius: 3px;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb:hover {
+    background: rgba(52, 152, 219, 0.5);
+}
