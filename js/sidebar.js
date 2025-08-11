@@ -146,7 +146,7 @@ function hideLogoutModal() {
 // NEW: Confirm logout function
 function confirmLogout() {
     sessionStorage.clear();
-    window.location.href = 'login.html';
+    window.location.href = 'index.html';
 }
 
 function loadUserInformation() {
@@ -467,4 +467,5 @@ function createSidebarToggle() {
     toggleButton.style.cursor = 'pointer';
     
     document.body.appendChild(toggleButton);
+
 }
