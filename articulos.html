@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artículos</title>
+    <link rel="icon" href="img/Articulos.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/articulos.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+</head>
+<body>      
+    <div id="sidebarContainer"></div>
+    <!-- Contenedor principal -->
+    <div class="main-content">
+        <header>
+            <h1>Gestión de Artículos</h1>
+            <div class="header-actions">
+                <button id="btnNuevoArticulo" class="btn-action">
+                    <i class="fas fa-plus"></i> Nuevo Artículo
+                </button>
+            </div>
+        </header>
+
+        <!-- Sección de filtros -->
+        <section class="filters-section">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="filtroSede">Sede:</label>
+                    <select id="filtroSede">
+                        <option value="">Todas</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filtroTipo">Tipo:</label>
+                    <select id="filtroTipo">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filtroCategoria">Categoría:</label>
+                    <select id="filtroCategoria">
+                        <option value="">Todas</option>
+                    </select>
+                </div>              
+                <div class="filter-group">
+                    <label for="filtroEstado">Estado:</label>
+                    <select id="filtroEstado">
+                        <option value="">Todos</option>
+                        <option value="ACTIVO">ACTIVO</option>
+                        <option value="INACTIVO">INACTIVO</option>
+                    </select>
+                </div>
+                <div class="filter-group search-group">
+                    <label for="buscarItem">Buscar:</label>
+                    <input type="text" id="buscarItem" placeholder="Buscar artículo...">
+                </div>
+                <button id="btnLimpiarFiltros" class="btn-secondary">
+                    <i class="fas fa-broom"></i> Limpiar Filtros
+                </button>
+            </div>
+        </section>             
+
+        <!-- Tabla de inventario -->
+        <section class="inventory-section">
+            <div class="table-container">
+                <table id="inventoryTable" class="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Tipo</th>
+                            <th>Categoría</th>
+                            <th>Modo Inventario</th>
+                            <th>Modelo Para Pedidos</th>
+                            <th>Sede</th>                            
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>                    
+                    <tbody id="inventoryBody">
+                        <!-- Aquí se cargarán los datos dinámicamente -->
+                    </tbody>                    
+                </table>
+                <div id="noResults" class="no-results" style="display: none;">
+                    <p>No se encontraron resultados con los filtros aplicados</p>
+                </div>
+            </div>
+            
+            <!-- Pagination container only at the bottom -->
+            <div id="pagination-bottom" class="pagination-container"></div>
+        </section>
+
+        <!-- Overlay para el loader -->
+        <div id="loader" class="loader">
+            <div class="loader-spinner"></div>
+            <div>Cargando...</div>    
+        </div>
+
+    </div>
+   
+
+    <!-- Modal para crear/editar artículo -->
+    <div id="articleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Nuevo Artículo</h2>
+                <div class="modal-header-info">
+                    <div class="modal-item-id" id="modalItemId"></div>
+                    <div class="modal-item" id="modalItem"></div>
+                    <div class="modal-responsable" id="modalResponsable"></div>
+                    <div class="modal-status-badge" id="modalStatusBadge">ACTIVO</div>
+                </div>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="articleForm">                    
+                    <!-- Campo ID oculto real para el envío -->
+                    <input type="hidden" id="articleId">
+
+                    <!-- Sede -->
+                    <div class="form-group required-field">
+                        <label for="sede">Sede:</label>
+                        <select id="sede" required>
+                            <option value="">Seleccionar Sede</option>
+                            <!-- Opciones se cargarán dinámicamente -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-separator"></div>
+                    
+                    <!-- Tipo, Categoría y Modo en contenedor -->
+                    <div class="tipo-categoria-container">
+                        <div class="min-max-group required-field">
+                            <label for="tipo">Tipo:</label>
+                            <select id="tipo" required>
+                                <option value="">Seleccionar Tipo</option>
+                                <!-- Opciones se cargarán dinámicamente -->
+                            </select>
+                        </div>
+                        
+                        <div class="min-max-group required-field">
+                            <label for="categoria">Categoría:</label>
+                            <select id="categoria" required>
+                                <option value="">Seleccionar Categoría</option>
+                                <!-- Opciones se cargarán dinámicamente -->
+                            </select>
+                        </div>
+                        
+                        <div class="min-max-group required-field">
+                            <label for="modo">Modo Inventario</label>
+                            <input type="text" id="modo" placeholder="Ingrese modo" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-separator"></div>
+                    
+                    <div class="form-group required-field">
+                        <label for="modelo">Modelo Para Pedidos:</label>
+                        <select id="modelo" required>
+                            <option value="">Seleccionar Modelo</option>
+                            <!-- Opciones se cargarán dinámicamente -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group required-field">
+                        <label for="item">Item:</label>
+                        <input type="text" id="item" required>
+                    </div>
+                    
+                    <div class="form-separator"></div>
+                    
+                    <!-- Mínimo y Máximo -->
+                    <div class="min-max-container">
+                        <div class="min-max-group required-field">
+                            <label for="topeMinimo">Tope Mínimo:</label>
+                            <input type="number" id="topeMinimo" min="0" required>
+                        </div>
+                        
+                        <div class="min-max-group required-field">
+                            <label for="topeMaximo">Tope Máximo:</label>
+                            <input type="number" id="topeMaximo" min="0" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Proveedor -->
+                    <div class="form-group required-field">
+                        <label for="proveedor">Proveedor:</label>
+                        <select id="proveedor" required>
+                            <option value="">Seleccionar Proveedor</option>
+                            <!-- Las opciones se cargarán dinámicamente -->
+                        </select>
+                    </div>
+                    
+                    <!-- Estado -->
+                    <div class="form-group required-field">
+                        <label for="estado">Estado:</label>
+                        <select id="estado" required>
+                            <option value="ACTIVO">ACTIVO</option>
+                            <option value="INACTIVO">INACTIVO</option>
+                        </select>
+                    </div>
+                    
+                    
+                    
+                    <div class="form-actions">
+                        <button type="button" id="btnCancelar" class="btn-secondary">Cancelar</button>
+                        <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación para eliminar -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content confirm-modal">
+            <div class="modal-header">
+                <h2>Confirmar Eliminación</h2>
+            </div>
+            <div class="modal-body">
+                <p id="confirmDeleteMessage">¿Está seguro de que desea eliminar este artículo? Esta acción no se puede deshacer.</p>
+                <div class="form-actions">
+                    <button type="button" id="btnCancelDelete" class="btn-secondary">Cancelar</button>
+                    <button type="button" id="btnConfirmDelete" class="btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incluir archivo de listas antes del archivo principal de JavaScript -->
+    <script src="js/listas.js"></script>
+    <script src="js/articulos.js"></script>
+    <script src="js/sidebar.js"></script>
+
+    <!-- Añade esto justo antes del cierre del body -->
+    <div id="successModal" class="success-modal">
+        <div class="checkmark-circle">
+            <div class="background"></div>
+            <div class="checkmark draw"></div>
+        </div>
+        <h3 class="success-message">¡Operación Exitosa!</h3>
+        <p class="success-details" id="successDetails">El artículo ha sido guardado correctamente.</p>
+       
+    </div>
+    <!-- Modificar el campo de responsable para ocultarlo -->
+    <div class="form-group required-field" style="display: none;">
+        <label for="responsable">Responsable:</label>
+        <input type="hidden" id="responsable" required>
+    </div>
+    <!-- Remove duplicate pagination containers -->
+</body>
+</html>

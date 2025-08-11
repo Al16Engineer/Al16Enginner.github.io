@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Ingresos</title>
+    <link rel="icon" href="img/ingresos.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/ingresos.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Ingresos</h1>
+        <div class="header-actions">
+    </header>
+    
+    <div class="main-content">
+        <div class="container">
+            <!-- Panel de filtros -->
+            <div class="filtros-panel">
+                <div class="filtros-header">
+                    <h3>Filtros de búsqueda</h3>
+                    <div class="filtro-acciones">
+                        <button id="btn-filtrar" class="btn-filtrar">Filtrar</button>
+                        <button id="btn-limpiar" class="btn-limpiar">Limpiar filtros</button>
+                    </div>
+                </div>
+                <div class="filtros-content">
+                    <div class="filtro-grupo">
+                        <label for="filtro-item">Item:</label>
+                        <input type="text" id="filtro-item" class="filtro-item" placeholder="Buscar por item...">
+                    </div>                    
+                    <div class="filtro-grupo">
+                        <label for="filtro-categoria">Categoría:</label>
+                        <select id="filtro-categoria">
+                            <option value="">Todas</option>
+                            <!-- Se llenará dinámicamente -->
+                        </select>
+                    </div>
+                    <div class="filtro-grupo">
+                        <label for="filtro-sede">Sede:</label>
+                        <select id="filtro-sede">
+                            <option value="">Todas</option>
+                            <option value="SANTA ROSA">SANTA ROSA</option>
+                            <option value="FILANDIA">FILANDIA</option>
+                        </select>
+                    </div>
+                    <div class="filtro-grupo">
+                        <label for="filtro-fecha">Fecha Ingreso:</label>
+                        <input type="text" id="filtro-fecha" class="filtro-fecha" readonly placeholder="DD/MM/AAAA">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mensaje cuando no hay resultados -->
+            <div id="noResults" class="no-results" style="display: none;">
+                <p>No se encontraron resultados con los filtros aplicados</p>
+            </div>
+            
+            <!-- Contenedor principal para la tabla -->
+            <div class="table-container">
+                <table id="ingresosTable" class="inventory-table">
+                    <thead>
+                        <tr>
+                            <!-- Se llenará dinámicamente -->
+                        </tr>
+                    </thead>
+                    <tbody id="ingresosBody">
+                        <!-- Los datos se cargarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Loader -->
+            <div id="loader" class="loader">
+                <div class="loader-spinner"></div>
+                <p>Cargando datos...</p>
+            </div>
+        </div>
+    </div>    
+    
+    <!-- Modal de Detalles -->
+    <div id="detallesModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Detalles del Ingreso</h2>
+            <div class="modal-body">
+                <p><strong>Responsable:</strong> <span id="detalle-responsable">No especificado</span></p>
+                <p><strong>Pedido:</strong> <span id="detalle-factura">No disponible</span></p>
+                <p><strong>Vencimiento:</strong> <span id="detalle-vencimiento">No especificado</span></p>
+                <p><strong>Observaciones:</strong> <span id="detalle-observacion">Ninguna</span></p>
+                <p><strong>Fecha Ingreso:</strong> <span id="detalle-fechaing">No disponible</span></p>
+                <p><strong>Hora Ingreso:</strong> <span id="detalle-horaing">No disponible</span></p>
+            </div>            
+        </div>
+    </div>
+    
+    <!-- Modal de Edición -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="editModalTitle">Editar Ingreso</h2>
+            <form id="editForm">
+                <input type="hidden" id="edit-id">
+                
+                <div class="form-group">
+                    <label for="edit-tipo">Tipo:</label>
+                    <select id="edit-tipo" required>
+                        <option value="">Seleccione un tipo</option>
+                        <!-- Se llenará dinámicamente -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-categoria">Categoría:</label>
+                    <select id="edit-categoria" required>
+                        <option value="">Seleccione una categoría</option>
+                        <!-- Se llenará dinámicamente -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-sede">Sede:</label>
+                    <select id="edit-sede" required>
+                        <option value="">Seleccione una sede</option>
+                        <option value="SANTA ROSA">SANTA ROSA</option>
+                        <option value="FILANDIA">FILANDIA</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-item">Item:</label>
+                    <input type="text" id="edit-item" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-modelo">Modelo:</label>
+                    <input type="text" id="edit-modelo">
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-presentacion">Presentación:</label>
+                    <input type="text" id="edit-presentacion">
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-cantidad">Cantidad:</label>
+                    <input type="number" id="edit-cantidad" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-factura">Pedido:</label>
+                    <input type="text" id="edit-factura">
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-vencimiento">Vencimiento:</label>
+                    <input type="date" id="edit-vencimiento">
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-observacion">Observaciones:</label>
+                    <textarea id="edit-observacion"></textarea>
+                </div>
+                
+                <div class="form-buttons">
+                    <button type="submit" id="btnGuardarEdit">Guardar</button>
+                    <button type="button" id="btnCancelarEdit">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/ingresos.js"></script>
+    <script src="js/sidebar.js"></script>
+</body>
+</html>

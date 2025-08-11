@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producción</title>
+    <link rel="icon" href="img/Produccion.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/produccion.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Producción</h1>
+        <div class="header-actions">
+    </header>
+    
+    <div class="main-content">
+        <div class="container">
+            <!-- Panel de filtros similar a articulos -->
+            <div class="filtros-panel">
+                <div class="filtros-header">
+                    <h3>Filtros de búsqueda</h3>
+                    <!-- Moved filter buttons here -->
+                    <div class="filtro-acciones">
+                        <button id="btn-filtrar" class="btn-filtrar">Filtrar</button>
+                        <button id="btn-limpiar" class="btn-limpiar">Limpiar filtros</button>
+                    </div>
+                </div>
+                <div class="filtros-content">
+                    <div class="filtro-grupo">
+                        <label for="filtro-carne">Rango:</label>
+                        <input type="text" id="filtro-carne" class="filtro-rango" placeholder="Buscar por rango...">
+                    </div>                    
+                    <div class="filtro-grupo">
+                        <label for="filtro-subcategoria">Subcategoría:</label>
+                        <select id="filtro-subcategoria">
+                            <option value="">Todas</option>
+                            <!-- Se llenará dinámicamente -->
+                        </select>
+                    </div>
+                    <div class="filtro-grupo">
+                        <label for="filtro-estado">Estado:</label>
+                        <select id="filtro-estado">
+                            <option value="">Todos</option>
+                            <option value="Libre">Libre</option>
+                            <option value="Ocupada">Ocupada</option>
+                        </select>
+                    </div>
+                    <div class="filtro-grupo">
+                        <label for="filtro-sede">Sede:</label>
+                        <select id="filtro-sede">
+                            <option value="">Todas</option>
+                            <option value="SANTA ROSA">SANTA ROSA</option>
+                            <option value="FILANDIA">FILANDIA</option>
+                        </select>
+                    </div>
+                    <!-- Removed filter buttons from here -->
+                </div>
+            </div>
+            
+            <!-- Mensaje cuando no hay resultados -->
+            <div id="noResults" class="no-results" style="display: none;">
+                <p>No se encontraron resultados con los filtros aplicados</p>
+            </div>
+            
+            <!-- Contenedor principal para la tabla -->
+            <div class="table-container">
+                <table id="produccionTable" class="inventory-table">
+                    <thead>
+                        <tr>                           
+                        </tr>
+                    </thead>
+                    <tbody id="produccionBody">
+                        <!-- Los datos se cargarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Loader -->
+            <div id="loader" class="loader">
+                <div class="loader-spinner"></div>
+                <p>Cargando datos...</p>
+            </div>
+        </div>
+    </div>    
+    
+    <!-- Modal de Detalles -->
+    <div id="detallesModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Detalles del Registro</h2>
+            <div class="modal-body">
+                <p><strong>Fecha:</strong> <span id="detalle-fecha">No disponible</span></p>
+                <p><strong>Responsable:</strong> <span id="detalle-responsable">No especificado</span></p>
+                <p><strong>Observación:</strong> <span id="detalle-observacion">Ninguna</span></p>
+            </div>            
+        </div>
+    </div>
+    
+    <!-- Modal de Edición -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="editModalTitle">Editar Registro</h2>
+            <form id="editForm">
+                <input type="hidden" id="edit-id">
+                <input type="hidden" id="edit-codigo">
+                <input type="hidden" id="edit-rango">
+                <input type="hidden" id="edit-categoria">
+                <input type="hidden" id="edit-subcategoria">
+                
+                <div class="form-group">
+                    <label for="edit-cantidad">Cantidad:</label>
+                    <input type="number" id="edit-cantidad" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-sede">Sede:</label>
+                    <select id="edit-sede" required>
+                        <option value="">Seleccione una sede</option>
+                        <option value="SANTA ROSA">SANTA ROSA</option>
+                        <option value="FILANDIA">FILANDIA</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-motivo">Motivo:</label>
+                    <select id="edit-motivo" required>
+                        <option value="">Seleccione un motivo</option>
+                        <option value="CONGELADOR">CONGELADOR</option>
+                        <option value="REFRIGERADOR">REFRIGERADOR</option>
+                        <option value="TEMPORAL">TEMPORAL</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-observacion">Observación:</label>
+                    <textarea id="edit-observacion"></textarea>
+                </div>
+                
+                <div class="form-buttons">
+                    <button type="submit" id="btnGuardarEdit">Guardar</button>
+                    <button type="button" id="btnCancelarEdit">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal de Liberar -->
+    <div id="liberarModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Confirmar Liberación</h2>
+            <p>¿Está seguro que desea liberar el rango <span id="liberar-codigo"></span>?</p>
+            <div class="form-buttons">
+                <button type="button" id="btnConfirmarLiberar">Confirmar</button>
+                <button type="button" id="btnCancelarLiberar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación para liberar rango -->
+    <div id="liberarModal" class="modal">
+        <div class="modal-content confirm-modal">
+            <span class="close">&times;</span>
+            <div class="confirm-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Confirmar Liberación</h3>
+            <p>¿Está seguro que desea liberar el rango <span id="liberar-codigo" class="highlight-text"></span>?</p>            
+            <div class="form-actions">
+                <button type="button" id="btnCancelarLiberar" class="btn-secondary">Cancelar</button>
+                <button type="button" id="btnConfirmarLiberar" class="btn-danger">Liberar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/produccion.js"></script>
+    <script src="js/sidebar.js"></script>
+</body>
+</html>

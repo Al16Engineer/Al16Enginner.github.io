@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producción</title>
+    <link rel="icon" href="img/Produccion.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/inventario.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+</head>
+<body>
+    <header>
+        <h1>Gestión Inventario</h1>
+        <div class="header-actions">
+            <button id="btn-ingreso" class="header-btn"><i class="fas fa-truck-loading"></i> Ingreso</button>
+            <button id="btn-conteo" class="header-btn"><i class="fas fa-clipboard-list"></i> Conteo</button>
+        </div>
+    </header>
+        
+    <div class="main-content">
+        <div class="container">
+            <!-- Panel de filtros similar a articulos -->
+            <div class="filtros-panel">
+                <div class="filtros-header">
+                    <h3>Filtros de búsqueda</h3>
+                </div>
+                <div class="filtros-content">
+                    <div class="filtro-grupo">
+                        <label for="filtro-carne">Rango:</label>
+                        <input type="text" id="filtro-carne" class="filtro-rango" placeholder="Buscar por rango...">
+                    </div>                    
+                    <div class="filtro-grupo">
+                        <label for="filtro-subcategoria">Subcategoría:</label>
+                        <select id="filtro-subcategoria">
+                            <option value="">Todas</option>
+                            <!-- Se llenará dinámicamente -->
+                        </select>
+                    </div>
+                    <div class="filtro-grupo">
+                        <label for="filtro-estado">Estado:</label>
+                        <select id="filtro-estado">
+                            <option value="">Todos</option>
+                            <option value="Libre">Libre</option>
+                            <option value="Ocupada">Ocupada</option>
+                        </select>
+                    </div>
+                    <div class="filtro-grupo">
+                        <label for="filtro-sede">Sede:</label>
+                        <select id="filtro-sede">
+                            <option value="">Todas</option>
+                            <option value="SANTA ROSA">SANTA ROSA</option>
+                            <option value="FILANDIA">FILANDIA</option>
+                        </select>
+                    </div>
+                    <div class="filtro-acciones">
+                        <button id="btn-filtrar" class="btn-filtrar">Filtrar</button>
+                        <button id="btn-limpiar" class="btn-limpiar">Limpiar filtros</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Información General -->
+            <div class="info-general-panel">
+                <div class="info-header">
+                    <h3>Información General</h3>
+                </div>
+                <div class="info-content">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <div class="info-details">
+                            <h4>Total Artículos</h4>
+                            <p id="total-articulos">0</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="info-details">
+                            <h4>Stock Bajo</h4>
+                            <p id="stock-bajo">0</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon danger">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="info-details">
+                            <h4>Agotados</h4>
+                            <p id="stock-agotado">0</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="info-details">
+                            <h4>Stock Normal</h4>
+                            <p id="stock-normal">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mensaje cuando no hay resultados -->
+            <div id="noResults" class="no-results" style="display: none;">
+                <p>No se encontraron resultados con los filtros aplicados</p>
+            </div>
+            
+            <!-- Contenedor principal para la tabla -->
+            <div class="table-container">
+                <table id="produccionTable" class="inventory-table">
+                    <thead>
+                        <tr>                           
+                        </tr>
+                    </thead>
+                    <tbody id="produccionBody">
+                        <!-- Los datos se cargarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Loader -->
+            <div id="loader" class="loader">
+                <div class="loader-spinner"></div>
+                <p>Cargando datos...</p>
+            </div>
+        </div>
+    </div>   
+
+    <script src="js/inventario.js"></script>
+    <script src="js/sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proveedores</title>
+    <link rel="icon" href="img/Proveedores.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/proveedores.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+</head>
+<body>      
+
+    <!-- Contenedor principal -->
+    <div class="main-content">
+        <header>
+            <h1>Gestión de Proveedores</h1>
+            <div class="header-actions">
+                <button id="btnNuevoProveedor" class="btn-action">
+                    <i class="fas fa-plus"></i> Nuevo Proveedor
+                </button>                
+            </div>
+        </header>
+
+        <!-- Sección de filtros -->
+        <section class="filters-section">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="filtroSede">Sede:</label>
+                    <select id="filtroSede">
+                        <option value="">Todas</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filtroEstado">Estado:</label>
+                    <select id="filtroEstado">
+                        <option value="">Todos</option>
+                        <option value="ACTIVO">ACTIVO</option>
+                        <option value="INACTIVO">INACTIVO</option>
+                    </select>
+                </div>
+                <div class="filter-group search-group">
+                    <label for="buscarProveedor">Buscar:</label>
+                    <input type="text" id="buscarProveedor" placeholder="Buscar proveedor...">
+                </div>
+                <button id="btnLimpiarFiltros" class="btn-secondary">
+                    <i class="fas fa-broom"></i> Limpiar Filtros
+                </button>
+            </div>
+        </section>             
+
+        <!-- Tabla de proveedores -->
+        <section class="inventory-section">
+            <div class="table-container">
+                <table id="proveedoresTable" class="inventory-table">
+                    <thead>
+                        <tr>
+                            <th data-sort="CODIGO">Código</th>
+                            <th data-sort="PROVEEDOR">Proveedor</th>
+                            <th data-sort="SEDE">Sede</th>
+                            <th data-sort="TELEFONO">Teléfono</th>
+                            <th data-sort="CORREO">Correo</th>
+                            <th data-sort="CIUDAD">Ciudad</th>
+                            <th data-sort="ESTADO">Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>                    
+                    <tbody id="proveedoresBody">
+                        <!-- Aquí se cargarán los datos dinámicamente -->
+                    </tbody>                    
+                </table>
+                <div id="noResults" class="no-results" style="display: none;">
+                    <p>No se encontraron resultados con los filtros aplicados</p>
+                </div>
+            </div>
+            
+            <!-- Pagination container only at the bottom -->
+            <div id="pagination-bottom" class="pagination-container"></div>
+        </section>
+
+        <!-- Overlay para el loader -->
+        <div id="loader" class="loader">
+            <div class="loader-spinner"></div>
+            <div>Cargando...</div>    
+        </div>
+    </div>
+
+    <!-- Modal para crear/editar proveedor -->
+    <!-- Modal para crear/editar proveedor -->
+    <div id="proveedorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Nuevo Proveedor</h2>
+                <div class="modal-header-info">
+                    <div class="modal-item-id" id="modalItemId">Código: </div>
+                    <div class="modal-item" id="modalItem"></div>
+                    <div class="modal-responsable" id="modalResponsable"></div>
+                    <div class="modal-status-badge" id="modalStatusBadge">ACTIVO</div>
+                </div>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="proveedorForm">                    
+                    <!-- Campo ID oculto real para el envío -->
+                    <input type="hidden" id="proveedorId">
+
+                    <!-- Sede -->
+                    <div class="form-group required-field">
+                        <label for="sede">Sede:</label>
+                        <select id="sede" required>
+                            <option value="">Seleccionar Sede</option>
+                            <option value="FILANDIA">FILANDIA</option>
+                            <option value="SANTA ROSA">SANTA ROSA</option>
+                            <option value="ALL">AMBAS</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-separator"></div>
+                    
+                    <div class="form-group required-field">
+                        <label for="proveedor">Nombre Proveedor:</label>
+                        <input type="text" id="proveedor" required>
+                    </div>
+                    
+                    <div class="form-group required-field">
+                        <label for="telefono">Teléfono:</label>
+                        <input type="text" id="telefono" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="correo">Correo Electrónico:</label>
+                        <input type="email" id="correo">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="direccion">Dirección:</label>
+                        <input type="text" id="direccion">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ciudad">Ciudad:</label>
+                        <input type="text" id="ciudad">
+                    </div>
+                    
+                    <!-- Estado -->
+                    <div class="form-group required-field">
+                        <label for="estado">Estado:</label>
+                        <select id="estado" required>
+                            <option value="ACTIVO">ACTIVO</option>
+                            <option value="INACTIVO">INACTIVO</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="btnCancelar" class="btn-secondary">Cancelar</button>
+                        <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación para eliminar -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content confirm-modal">
+            <div class="modal-header">
+                <h2>Confirmar Eliminación</h2>
+            </div>
+            <div class="modal-body">
+                <p id="confirmDeleteMessage">¿Está seguro de que desea eliminar este proveedor? Esta acción no se puede deshacer.</p>
+                <div class="form-actions">
+                    <button type="button" id="btnCancelDelete" class="btn-secondary">Cancelar</button>
+                    <button type="button" id="btnConfirmDelete" class="btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Añade esto justo antes del cierre del body -->
+    <div id="successModal" class="success-modal">
+        <div class="checkmark-circle">
+            <div class="background"></div>
+            <div class="checkmark draw"></div>
+        </div>
+        <h3 class="success-message">¡Operación Exitosa!</h3>
+        <p class="success-details" id="successDetails">El proveedor ha sido guardado correctamente.</p>
+    </div>
+
+    <!-- Modificar el campo de responsable para ocultarlo -->
+    <div class="form-group required-field" style="display: none;">
+        <label for="responsable">Responsable:</label>
+        <input type="hidden" id="responsable" required>
+    </div>
+
+    <!-- Modal para mostrar artículos por proveedor -->
+    <!-- Modal para mostrar artículos por proveedor -->
+    <div id="articulosProveedorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Artículos del Proveedor: <span id="proveedorName"></span></h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <table id="articulosTable" class="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Item</th>
+                            <th>Categoría</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="articulosBody">
+                        <!-- Aquí se cargarán los artículos dinámicamente -->
+                    </tbody>
+                </table>
+                <div id="noArticulos" class="no-results" style="display: none;">
+                    <p>No se encontraron artículos para este proveedor</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación para eliminar -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content confirm-modal">
+            <div class="modal-header">
+                <h2>Confirmar Eliminación</h2>
+            </div>
+            <div class="modal-body">
+                <p id="confirmDeleteMessage">¿Está seguro de que desea eliminar este proveedor? Esta acción no se puede deshacer.</p>
+                <div class="form-actions">
+                    <button type="button" id="btnCancelDelete" class="btn-secondary">Cancelar</button>
+                    <button type="button" id="btnConfirmDelete" class="btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Añade esto justo antes del cierre del body -->
+    <div id="successModal" class="success-modal">
+        <div class="checkmark-circle">
+            <div class="background"></div>
+            <div class="checkmark draw"></div>
+        </div>
+        <h3 class="success-message">¡Operación Exitosa!</h3>
+        <p class="success-details" id="successDetails">El proveedor ha sido guardado correctamente.</p>
+    </div>
+
+    <!-- Modificar el campo de responsable para ocultarlo -->
+    <div class="form-group required-field" style="display: none;">
+        <label for="responsable">Responsable:</label>
+        <input type="hidden" id="responsable" required>
+    </div>
+
+    <script src="js/proveedores.js"></script>
+    <script src="js/sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Restaurante</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+</head>
+<body>
+    <!-- Modern Sidebar Component -->
+    <div class="sidebar" id="sidebar">
+        <!-- Header Section with Logo -->
+        <div class="sidebar-header">
+            <div id="restaurantLogoContainer">
+                <img id="logoSR" src="../img/LogoSR.png" alt="Logo Santa Rosa" class="logo" style="display: none;">
+                <img id="logoMP" src="../img/LogoMP.png" alt="Logo Meson de Piedra" class="logo" style="display: none;">
+            </div>
+            <div class="user-info">
+                <div id="userName" class="user-name">Usuario</div>
+                <div class="user-meta">
+                    <span id="userRole" class="user-role">Cargo</span>
+                    <span id="userLocation" class="user-location">Sede</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menu Section -->
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="index.html" class="menu-item">
+                        <i class="fa-duotone fa-solid fa-house"></i>
+                        <span class="menu-text">Inicio</span>
+                    </a>
+                </li>                
+            
+
+                <li>
+                    <a href="articulos.html" class="menu-item">
+                        <i class="fa-sharp fa-solid fa-tag"></i>
+                        <span class="menu-text">Artículos</span>
+                    </a>
+                </li>     
+
+                <li>
+                    <a href="proveedores.html" class="menu-item">
+                        <i class="fa-sharp fa-solid fa-truck"></i>
+                        <span class="menu-text">Proveedores</span>
+                    </a>
+                </li>  
+                
+                <li>
+                    <a href="inventario.html" class="menu-item">
+                        <i class="fa-sharp fa-solid fa-clipboard"></i>
+                        <span class="menu-text">Inventario</span>
+                    </a>
+                </li>                                    
+                
+                <li>
+                    <a href="produccion.html" class="menu-item">
+                        <i class="fa-sharp fa-solid fa-tag"></i>
+                        <span class="menu-text">Producción</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="pedidos.html" class="menu-item">
+                        <i class="fas fa-clipboard-check menu-icon"></i>
+                        <span class="menu-text">Pedidos</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="reportes.html" class="menu-item">
+                        <i class="fas fa-chart-bar menu-icon"></i>
+                        <span class="menu-text">Reportes</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="usuarios.html" class="menu-item">
+                        <i class="fas fa-users-cog menu-icon"></i>
+                        <span class="menu-text">Usuarios</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Footer Section -->
+        <div class="sidebar-footer">
+            <button id="logoutBtn" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <!-- Toggle Button -->
+    <button id="sidebarToggle" class="sidebar-toggle" title="Abrir menú">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Modal de Cerrar Sesión -->
+    <div id="logoutModal">
+        <div class="modal-content">
+          <h2>¿Cerrar sesión?</h2>
+          <p>¿Estás seguro que deseas cerrar sesión?</p>
+          <div class="modal-actions">
+            <button id="confirmLogoutBtn" class="btn-confirm">Sí, salir</button>
+            <button id="cancelLogoutBtn" class="btn-cancel">Cancelar</button>
+          </div>
+        </div>
+    </div>
+
+    <script src="js/sidebar.js"></script>
+</body>
+</html>

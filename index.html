@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistema de Inventario</title>
+    <link rel="icon" href="img/Inicio.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+</head>
+<body>
+    <div id="sidebarContainer"></div>
+    
+    <div class="main-content">
+        <header class="dashboard-header">
+            <div class="welcome-section">
+                <h1>Bienvenido, <span id="userName">Usuario</span></h1>
+                <p class="date-time" id="currentDateTime">Cargando fecha y hora...</p>
+            </div>
+            <div class="notifications-section">
+                <button id="notificationsBtn" class="notifications-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge" id="notificationCount">0</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- Resumen de Inventario -->
+            <div class="dashboard-card inventory-summary">
+                <h3><i class="fas fa-box"></i> Resumen de Inventario</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalItems">0</span>
+                        <span class="stat-label">Artículos Totales</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="lowStock">0</span>
+                        <span class="stat-label">Stock Bajo</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="activeSuppliers">0</span>
+                        <span class="stat-label">Proveedores Activos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accesos Rápidos -->
+            <div class="dashboard-card quick-access">
+                <h3><i class="fas fa-star"></i> Accesos Rápidos</h3>
+                <div class="quick-access-grid">
+                    <a href="articulos.html" class="quick-access-item">
+                        <i class="fas fa-box-open"></i>
+                        <span>Artículos</span>
+                    </a>
+                    <a href="proveedores.html" class="quick-access-item">
+                        <i class="fas fa-truck"></i>
+                        <span>Proveedores</span>
+                    </a>
+                    <a href="ingresos.html" class="quick-access-item">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>Ingresos</span>
+                    </a>
+                    <a href="conteo.html" class="quick-access-item">
+                        <i class="fas fa-calculator"></i>
+                        <span>Conteo</span>
+                    </a>
+                    <a href="produccion.html" class="quick-access-item">
+                        <i class="fas fa-industry"></i>
+                        <span>Producción</span>
+                    </a>
+                    <a href="pedidos.html" class="quick-access-item">
+                        <i class="fas fa-clipboard-check"></i>
+                        <span>Pedidos</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Alertas y Notificaciones -->
+            <div class="dashboard-card notifications">
+                <h3><i class="fas fa-bell"></i> Alertas y Notificaciones</h3>
+                <div class="notifications-list" id="notificationsList">
+                    <!-- Las notificaciones se cargarán dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Actividad Reciente -->
+            <div class="dashboard-card recent-activity">
+                <h3><i class="fas fa-history"></i> Actividad Reciente</h3>
+                <div class="activity-list" id="activityList">
+                    <!-- La actividad reciente se cargará dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel de Notificaciones -->
+    <div id="notificationsPanel" class="notifications-panel">
+        <div class="notifications-header">
+            <h3>Notificaciones</h3>
+            <button id="closeNotifications" class="close-btn">&times;</button>
+        </div>
+        <div class="notifications-content">
+            <!-- Las notificaciones se cargarán dinámicamente -->
+        </div>
+    </div>
+
+    <script src="js/index.js"></script>
+    <script src="js/sidebar.js"></script>
+</body>
+</html>
